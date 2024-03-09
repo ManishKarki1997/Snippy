@@ -7,7 +7,7 @@ export const AppLayout = () => {
     <div className="min-h-screen flex">
       <AppSidebar />
 
-      <main>
+      <main className="w-full">
         <Outlet />
       </main>
     </div>

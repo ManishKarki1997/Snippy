@@ -44,8 +44,8 @@ export const AppSidebar = ({ className }: SidebarProps) => {
 
       <Separator />
 
-      <div className="space-y-4 py-4">
-        <div className="px-3 py-2">
+      <div className="space-y-4 px-4 py-3">
+        <div className="">
           {/* <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
             Navigation
           </h2> */}
@@ -76,12 +76,18 @@ export const AppSidebar = ({ className }: SidebarProps) => {
 
         <Separator />
 
-        <div className="py-2">
-          <h2 className="relative px-7 text-lg font-semibold tracking-tight">
-            Collections
-          </h2>
-          <ScrollArea className="h-[300px] px-1">
-            <div className="space-y-1 p-2">
+        <div>
+          <div className="flex items-center gap-2 justify-between">
+            <h2 className="relative text-md font-medium tracking-wide">
+              Collections
+            </h2>
+
+            <Button variant="ghost" size="sm">
+              {APP_ICONS.PLUS({ size: 16 })}
+            </Button>
+          </div>
+          <ScrollArea className="h-[300px] p-0">
+            <div className="space-y-1 p-2 -ml-2">
               {Collections?.map((collection, i) => (
                 <Button
                   key={`${collection}-${i}`}
@@ -98,16 +104,14 @@ export const AppSidebar = ({ className }: SidebarProps) => {
 
         <Separator />
 
-        <div className="px-3 py-2">
-          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-            Tags
-          </h2>
-          <div className="space-y-1">
+        <div>
+          <h2 className="relative text-md font-medium tracking-wide">Tags</h2>
+          <div className="space-y-1 py-2">
             {Tags.map((tag) => (
               <Button
                 key={tag}
                 variant="ghost"
-                className="w-full justify-start items-center gap-2"
+                className="w-full justify-start items-center font-medium gap-2"
               >
                 <div
                   className={cn(
