@@ -1,3 +1,4 @@
+import { CollectionDetailPage } from "@/features/collections/pages/CollectionDetail/CollectionDetailPage";
 import { Dashboard } from "@/features/dashboard/pages/Dashboard";
 import { HomePage } from "@/features/home/pages/HomePage";
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
@@ -31,6 +32,14 @@ export const MainRoutes = [
       {
         path: "snippets",
         element: <SnippetsPage />,
+      },
+      {
+        path: "collections/:colId",
+        element: <CollectionDetailPage />,
+      },
+      {
+        path: "collections/:colId/:snipId",
+        element: <CollectionDetailPage />,
       },
     ],
   },

@@ -5,6 +5,10 @@ export type EditorTheme = {
 
 export const EditorThemes: EditorTheme[] = [
   {
+    name: "Vitesse Light",
+    value: "vitesse-light",
+  },
+  {
     name: "Vitesse Dark",
     value: "vitesse-dark",
   },

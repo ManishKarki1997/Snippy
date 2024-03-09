@@ -11,9 +11,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export const CodeEditor = () => {
+interface Props {
+  height?: string;
+}
+
+export const CodeEditor = ({ height = "30vh" }: Props) => {
   const monacoRef = React.useRef<Monaco | null>(null);
-  const [codeTheme, setCodeTheme] = React.useState("vitesse-dark");
+  const [codeTheme, setCodeTheme] = React.useState("vitesse-light");
 
   const [code, setCode] = React.useState(`
   enum LogLevel {
@@ -52,6 +56,10 @@ export const CodeEditor = () => {
     monaco.languages.register({ id: "typescript" });
     monaco.languages.register({ id: "javascript" });
     monaco.editor.setTheme(codeTheme);
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
+    });
   }
 
   const onThemeChange = (_value: string) => {
@@ -60,7 +68,7 @@ export const CodeEditor = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col items-end space-y-2">
       <Select onValueChange={onThemeChange} value={codeTheme}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a theme" />
@@ -73,13 +81,15 @@ export const CodeEditor = () => {
       </Select>
 
       <Editor
-        height="30vh"
+        className="rounded-md overflow-hidden"
+        height={height}
         defaultLanguage="javascript"
         value={code}
         onChange={(_code) => setCode(_code || "")}
         theme={codeTheme}
         onMount={handleEditorDidMount}
         options={{
+          lineNumbers: "off",
           minimap: {
             enabled: false,
           },

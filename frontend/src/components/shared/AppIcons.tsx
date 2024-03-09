@@ -12,6 +12,7 @@ import {
   IoChevronBackSharp,
   IoChevronForwardSharp,
   IoSettingsOutline,
+  IoCodeSlashOutline,
 } from "react-icons/io5";
 import {
   FaPlus,
@@ -41,6 +42,7 @@ const IconWrapper = ({ icon: IconComponent, size = 20, ...rest }) => {
 };
 
 export const APP_ICONS = {
+  CODE: (props = {}) => <IconWrapper icon={IoCodeSlashOutline} {...props} />,
   GLOBE: (props = {}) => (
     <IconWrapper icon={HiOutlineGlobeAsiaAustralia} {...props} />
   ),

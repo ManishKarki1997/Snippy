@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Collections = [
   "Node",
@@ -29,10 +29,12 @@ const Colors = [
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const AppSidebar = ({ className }: SidebarProps) => {
+  // const navigation = useNavigate();
+
   return (
     <div
       className={cn(
-        "pb-12 max-w-72 border border-r border-gray-200",
+        "pb-12 max-w-72 border border-r border-gray-200 bg-background",
         className
       )}
     >
@@ -89,14 +91,18 @@ export const AppSidebar = ({ className }: SidebarProps) => {
           <ScrollArea className="h-[300px] p-0">
             <div className="space-y-1 p-2 -ml-2">
               {Collections?.map((collection, i) => (
-                <Button
+                <Link
                   key={`${collection}-${i}`}
-                  variant="ghost"
-                  className="w-full items-center justify-start gap-2 font-normal"
+                  to={`/app/collections/${collection}`}
                 >
-                  {APP_ICONS.FOLDER({})}
-                  {collection}
-                </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full items-center justify-start gap-2 font-normal"
+                  >
+                    {APP_ICONS.FOLDER({})}
+                    {collection}
+                  </Button>
+                </Link>
               ))}
             </div>
           </ScrollArea>
