@@ -1,6 +1,8 @@
 import { CollectionDetailPage } from "@/features/collections/pages/CollectionDetail/CollectionDetailPage";
 import { Dashboard } from "@/features/dashboard/pages/Dashboard";
 import { HomePage } from "@/features/home/pages/HomePage";
+import { LoginPage } from "@/features/auth/pages/LoginPage";
+import { RegisterPage } from "@/features/auth/pages/RegisterPage";
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
 import { SnippetsPage } from "@/features/snippets/pages/SnippetsPage";
 import { AppLayout } from "@/layouts/AppLayout";
@@ -8,7 +10,15 @@ import { HomeLayout } from "@/layouts/HomeLayout";
 
 export const MainRoutes = [
   {
-    path: "",
+    path: "login",
+    element: <LoginPage />,
+  },
+  {
+    path: "register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/",
     element: <HomeLayout />,
     children: [
       {

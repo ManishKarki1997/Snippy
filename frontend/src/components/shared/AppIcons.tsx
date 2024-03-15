@@ -28,6 +28,7 @@ import {
   MdOutlineShoppingCart,
   MdOutlineGpsFixed,
   MdOutlineFolder,
+  MdOutlineLogout,
 } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { BsThreeDotsVertical, BsGrid } from "react-icons/bs";
@@ -42,6 +43,7 @@ const IconWrapper = ({ icon: IconComponent, size = 20, ...rest }) => {
 };
 
 export const APP_ICONS = {
+  LOGOUT: (props = {}) => <IconWrapper icon={MdOutlineLogout} {...props} />,
   CODE: (props = {}) => <IconWrapper icon={IoCodeSlashOutline} {...props} />,
   GLOBE: (props = {}) => (
     <IconWrapper icon={HiOutlineGlobeAsiaAustralia} {...props} />
