@@ -38,7 +38,7 @@ export const AppSidebar = ({ className }: SidebarProps) => {
         className
       )}
     >
-      <div className="px-4 py-3">
+      <div className="px-4 py-4">
         <Link to="/">
           <AppLogo />
         </Link>

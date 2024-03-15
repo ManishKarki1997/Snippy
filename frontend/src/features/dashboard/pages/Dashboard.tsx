@@ -1,14 +1,15 @@
-import { CodeEditor } from "@/components/shared/CodeEditor";
-import React from "react";
+import { GreetUser } from "../components/dashboard/GreetUser";
+import { DashboardStats } from "../components/dashboard/DashboardStats";
+import { Space } from "@/components/shared/Space";
 
 export const Dashboard = () => {
   return (
     <div className="px-4 py-4">
-      <h2>Dashboard</h2>
+      <GreetUser />
 
-      <div className="mt-4">
-        <CodeEditor />
-      </div>
+      <Space h={40} />
+
+      <DashboardStats />
     </div>
   );
 };

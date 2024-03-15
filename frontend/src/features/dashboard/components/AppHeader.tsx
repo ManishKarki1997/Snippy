@@ -15,7 +15,7 @@ export const AppHeader = () => {
   const { logout } = useUserStore();
 
   return (
-    <div className="w-full px-4 py-4 bg-background shadow border border-b border-gray-200 flex items-center justify-between">
+    <div className="w-full h-16 px-4 py-4 bg-background shadow border border-b border-gray-200 flex items-center justify-between">
       <Input
         className="w-full md:max-w-lg"
         placeholder="Search your snippets"

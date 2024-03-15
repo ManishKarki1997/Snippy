@@ -16,9 +16,17 @@ export const AppLayout = () => {
     <div className="min-h-screen flex bg-primary-foreground">
       <AppSidebar />
 
-      <main className="w-full">
+      <main className="w-full min-h-screen">
         <AppHeader />
-        <Outlet />
+
+        <div
+          style={{
+            minHeight: "calc(100vh - 64px)",
+          }}
+          className="bg-secondary"
+        >
+          <Outlet />
+        </div>
       </main>
     </div>
   );
