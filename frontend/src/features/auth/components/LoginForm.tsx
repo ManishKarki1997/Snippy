@@ -33,7 +33,7 @@ export const LoginForm = () => {
 
   async function onSubmit(values: z.infer<typeof LoginSchema>) {
     try {
-      const { data: newUser, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
       });
@@ -42,7 +42,7 @@ export const LoginForm = () => {
       }
       toast.success("Logged in successfully");
       navigate("/app");
-      console.log("newUser", newUser);
+      localStorage.setItem("isSnippetUserLoggedIn", "true");
     } catch (error) {
       if (error instanceof AuthError) {
         const errorMessage = error.message;

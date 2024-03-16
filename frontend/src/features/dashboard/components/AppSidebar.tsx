@@ -1,20 +1,17 @@
 import { APP_ICONS } from "@/components/shared/AppIcons";
 import { AppLogo } from "@/components/shared/AppLogo";
+import { Loader } from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CollectionCardCompact } from "@/features/collections/components/cards/CollectionCardCompact";
+import { ManageCollectionForm } from "@/features/collections/components/forms/ManageCollectionForm";
+import { useListCollectionsQuery } from "@/features/collections/slices/collectionSlice";
+import { ICollection } from "@/features/collections/types/CollectionType";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-const Collections = [
-  "Node",
-  "Framer Motion",
-  "React",
-  "Vue",
-  "Linux",
-  "Window Managers",
-];
+import { Link } from "react-router-dom";
 
 const Tags = ["Javascript", "Go", "Animations", "Utility", "Snippets"];
 
@@ -30,6 +27,27 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const AppSidebar = ({ className }: SidebarProps) => {
   // const navigation = useNavigate();
+
+  const [isManageCollectionModalOpen, setIsManageCollectionModalOpen] =
+    React.useState(false);
+
+  const [selectedCollection, setSelectedCollection] =
+    React.useState<ICollection | null>(null);
+
+  const {
+    data: collections,
+    isLoading: isLoadingCollections,
+    isFetching: isFetchingCollections,
+  } = useListCollectionsQuery({});
+
+  const handleCloseManageCollectionModal = () => {
+    setIsManageCollectionModalOpen(false);
+  };
+
+  const onEditCollection = (_collection: ICollection) => {
+    setSelectedCollection(_collection);
+    setIsManageCollectionModalOpen(true);
+  };
 
   return (
     <div
@@ -84,26 +102,36 @@ export const AppSidebar = ({ className }: SidebarProps) => {
               Collections
             </h2>
 
-            <Button variant="ghost" size="sm">
-              {APP_ICONS.PLUS({ size: 16 })}
-            </Button>
+            {isFetchingCollections ? (
+              <Loader />
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsManageCollectionModalOpen(true)}
+              >
+                {APP_ICONS.PLUS({ size: 16 })}
+              </Button>
+            )}
           </div>
           <ScrollArea className="h-[300px] p-0">
             <div className="space-y-1 p-2 -ml-2">
-              {Collections?.map((collection, i) => (
-                <Link
-                  key={`${collection}-${i}`}
-                  to={`/app/collections/${collection}`}
-                >
-                  <Button
-                    variant="ghost"
-                    className="w-full items-center justify-start gap-2 font-normal"
-                  >
-                    {APP_ICONS.FOLDER({})}
-                    {collection}
-                  </Button>
-                </Link>
-              ))}
+              {isLoadingCollections && (
+                <div className="space-y-3">
+                  {Array.from(Array(4).keys()).map((col) => (
+                    <Skeleton key={col} className="w-full h-8 rounded" />
+                  ))}
+                </div>
+              )}
+              {!isLoadingCollections &&
+                collections &&
+                collections?.map((collection: ICollection) => (
+                  <CollectionCardCompact
+                    key={collection.id}
+                    collection={collection}
+                    onEdit={onEditCollection}
+                  />
+                ))}
             </div>
           </ScrollArea>
         </div>
@@ -131,6 +159,12 @@ export const AppSidebar = ({ className }: SidebarProps) => {
           </div>
         </div>
       </div>
+
+      <ManageCollectionForm
+        open={isManageCollectionModalOpen}
+        onClose={handleCloseManageCollectionModal}
+        collection={selectedCollection}
+      />
     </div>
   );
 };
